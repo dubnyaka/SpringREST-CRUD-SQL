@@ -1,2 +1,3 @@
 # SpringREST-CRUD
-# SpringREST-CRUD
+сущности Студент и Группа студентов связаны полем у студента groupID и полем id у группы  
+
