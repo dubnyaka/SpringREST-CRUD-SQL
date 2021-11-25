@@ -13,45 +13,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class StudentGroupController {
+public class StudentGroupsController {
 
     private final StudentGroupServiceImpl studentsGroupService;
     private final StudentServiceImpl studentService;
 
     @Autowired
-    public StudentGroupController(StudentGroupServiceImpl studentsGroupService,StudentServiceImpl studentService) {
+    public StudentGroupsController(StudentGroupServiceImpl studentsGroupService, StudentServiceImpl studentService) {
         this.studentsGroupService = studentsGroupService;
         this.studentService = studentService;
 
-//        StudentsGroup tempGroup = new StudentsGroup();
-//        tempGroup.setName("FirstGroup");
-//        studentsGroupService.create(tempGroup);
+        // Create test group object in repository for test
+        StudentsGroup tempGroup = new StudentsGroup();
+        tempGroup.setName("FirstGroup");
+        studentsGroupService.create(tempGroup);
     }
 
-    @PostMapping(value = "/studentGroups")
-    public ResponseEntity<?> create(@RequestBody StudentsGroup studentsGroup) {
-        studentsGroupService.create(studentsGroup);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
+    // Rest return studentsGroups list
     @GetMapping(value = "/studentGroups")
     public ResponseEntity<List<StudentsGroup>> read() {
         final List<StudentsGroup> studentsGroups = studentsGroupService.readAll();
 
-        return studentsGroups != null &&  !studentsGroups.isEmpty()
+        return studentsGroups != null && !studentsGroups.isEmpty()
                 ? new ResponseEntity<>(studentsGroups, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(value = "/studentGroups/{id}")
-    public ResponseEntity<StudentsGroup> read(@PathVariable(name = "id") int id) {
-        final StudentsGroup studentsGroup = studentsGroupService.read(id);
-
-        return studentsGroup != null
-                ? new ResponseEntity<>(studentsGroup, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
+    // Read all student in group
     @GetMapping(value = "/studentGroups/{id}/students")
     public ResponseEntity<List<Student>> readStudent(@PathVariable(name = "id") int groupID) {
         final List<Student> students = new ArrayList<>();
@@ -62,9 +50,25 @@ public class StudentGroupController {
             }
         }
 
-        return students != null &&  !students.isEmpty()
+        return students != null && !students.isEmpty()
                 ? new ResponseEntity<>(students, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    // Additional rest services
+    @GetMapping(value = "/studentGroups/{id}")
+    public ResponseEntity<StudentsGroup> read(@PathVariable(name = "id") int id) {
+        final StudentsGroup studentsGroup = studentsGroupService.read(id);
+
+        return studentsGroup != null
+                ? new ResponseEntity<>(studentsGroup, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping(value = "/studentGroups")
+    public ResponseEntity<?> create(@RequestBody StudentsGroup studentsGroup) {
+        studentsGroupService.create(studentsGroup);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/studentGroups/{id}")

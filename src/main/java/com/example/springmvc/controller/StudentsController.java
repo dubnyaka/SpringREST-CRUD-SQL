@@ -12,14 +12,15 @@ import java.util.List;
 
 @RequestMapping("/students")
 @RestController
-public class StudentController {
+public class StudentsController {
 
     private final StudentServiceImpl studentsService;
 
     @Autowired
-    public StudentController(StudentServiceImpl studentsService) {
+    public StudentsController(StudentServiceImpl studentsService) {
         this.studentsService = studentsService;
 
+        // Create test student object in repository for test
         Student tempStudent = new Student();
         tempStudent.setName("FirstStudent");
         tempStudent.setEmail("GGG@GGG");
@@ -28,7 +29,7 @@ public class StudentController {
         studentsService.create(tempStudent);
     }
 
-    //Rest get object list
+    // Rest return students list
     @GetMapping(value = "/")
     public ResponseEntity<List<Student>> read() {
         final List<Student> students = studentsService.readAll();
@@ -38,6 +39,7 @@ public class StudentController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    // CRUD Create
     @GetMapping("/new")
     public ModelAndView createStudent() {
         Student student = new Student();
@@ -45,41 +47,30 @@ public class StudentController {
                 .addObject("student", student);
     }
 
-    @PostMapping("/save")
-    public ModelAndView saveStudent(Student student) {
-        if(student.getId() != null){
-            studentsService.update(student,student.getId());
-        }else {
-            studentsService.create(student);
-        }
-
-        // redirect позволит не избежать повторного сохранения
-        // если пользователь нажмет F5
-        return new ModelAndView("redirect:/students/" + student.getId());
-    }
-
-    @GetMapping("/{id}/edit")
-    public ModelAndView editStudent(@PathVariable("id") int id) {
-        // загружаем объект из базы
-        Student student = studentsService.read(id);
-        // используем то же view что и для создания
-        return new ModelAndView("student/studentEdit")
-                .addObject("student", student);
-    }
-
+    // CRUD Read
     @GetMapping("/{id}")
     public ModelAndView viewStudent(@PathVariable("id") int id) {
         Student student = studentsService.read(id);
         if (student == null) {
             throw new ResourceNotFoundException();
         }
-        // путь относительно viewResolver
+
         ModelAndView model = new ModelAndView("student/studentView");
-        // добавляем данные в модель
+
         model.addObject("student", student);
         return model;
     }
 
+    // CRUD Update
+    @GetMapping("/{id}/edit")
+    public ModelAndView editStudent(@PathVariable("id") int id) {
+        Student student = studentsService.read(id);
+
+        return new ModelAndView("student/studentEdit")
+                .addObject("student", student);
+    }
+
+    // CRUD Delete
     @PostMapping(value = "/delete")
     public ModelAndView delete(Student studentID) {
         Student student = studentsService.read(studentID.getId());
@@ -89,6 +80,18 @@ public class StudentController {
             studentsService.delete(studentID.getId());
         }
         return new ModelAndView("redirect:/students/");
+    }
+
+    // For create and update class for save obj in repository
+    @PostMapping("/save")
+    public ModelAndView saveStudent(Student student) {
+        if(student.getId() != null){
+            studentsService.update(student,student.getId());
+        }else {
+            studentsService.create(student);
+        }
+
+        return new ModelAndView("redirect:/students/" + student.getId());
     }
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
