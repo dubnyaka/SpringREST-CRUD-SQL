@@ -2,7 +2,7 @@
 <h1>Student</h1>
 
 <form:form modelAttribute="student"
-           action="${pageContext.request.contextPath}/student/save">
+           action="${pageContext.request.contextPath}/students/save">
     <form:hidden path="id" />
     <table>
         <tr>

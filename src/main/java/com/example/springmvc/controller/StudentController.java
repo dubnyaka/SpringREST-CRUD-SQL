@@ -5,13 +5,12 @@ import com.example.springmvc.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@RequestMapping("/student")
+@RequestMapping("/students")
 @RestController
 public class StudentController {
 
@@ -27,6 +26,16 @@ public class StudentController {
         tempStudent.setPhone("14441255");
         tempStudent.setGroupID(1);
         studentsService.create(tempStudent);
+    }
+
+    //Rest get object list
+    @GetMapping(value = "/")
+    public ResponseEntity<List<Student>> read() {
+        final List<Student> students = studentsService.readAll();
+
+        return students != null &&  !students.isEmpty()
+                ? new ResponseEntity<>(students, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/new")
@@ -46,9 +55,8 @@ public class StudentController {
 
         // redirect позволит не избежать повторного сохранения
         // если пользователь нажмет F5
-        return new ModelAndView("redirect:/student/" + student.getId());
+        return new ModelAndView("redirect:/students/" + student.getId());
     }
-
 
     @GetMapping("/{id}/edit")
     public ModelAndView editStudent(@PathVariable("id") int id) {
@@ -57,18 +65,6 @@ public class StudentController {
         // используем то же view что и для создания
         return new ModelAndView("student/studentEdit")
                 .addObject("student", student);
-    }
-
-
-
-
-    @GetMapping(value = "/")
-    public ResponseEntity<List<Student>> read() {
-        final List<Student> students = studentsService.readAll();
-
-        return students != null &&  !students.isEmpty()
-                ? new ResponseEntity<>(students, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/{id}")
@@ -84,22 +80,15 @@ public class StudentController {
         return model;
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody Student student) {
-        final boolean updated = studentsService.update(student, id);
-
-        return updated
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-    }
-
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> delete(@PathVariable(name = "id") int id) {
-        final boolean deleted = studentsService.delete(id);
-
-        return deleted
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    @PostMapping(value = "/delete")
+    public ModelAndView delete(Student studentID) {
+        Student student = studentsService.read(studentID.getId());
+        if (student == null) {
+            throw new ResourceNotFoundException();
+        }else{
+            studentsService.delete(studentID.getId());
+        }
+        return new ModelAndView("redirect:/students/");
     }
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)

@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <h1>Student</h1>
 
 <table>
@@ -24,8 +25,13 @@
     <tr>
     <!-- Добавлена ссылка Edit -->
     <td colspan="2">
-        <a href="${pageContext.request.contextPath}/student/${student.id}/edit">Edit</a>
+        <a href="${pageContext.request.contextPath}/students/${student.id}/edit">Edit</a>
     </td>
     </tr>
-
 </table>
+
+<form:form modelAttribute="student"
+           action="${pageContext.request.contextPath}/students/delete">
+    <form:hidden path="id" value="${student.id}" />
+    <input type="submit" value="Delete" />
+</form:form>
