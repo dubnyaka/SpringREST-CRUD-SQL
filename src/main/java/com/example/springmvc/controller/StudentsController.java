@@ -22,7 +22,10 @@ public class StudentsController {
 
         // Create test student object in repository for test
         Student tempStudent = new Student();
-        tempStudent.setName("FirstStudent");
+        tempStudent.setFirstName("Alexandr");
+        tempStudent.setLastName("Bublikov");
+        tempStudent.setMiddleName("Aleksandrovich");
+        tempStudent.setDateOfBirth("1980.01.01");
         tempStudent.setEmail("GGG@GGG");
         tempStudent.setPhone("14441255");
         tempStudent.setGroupID(1);
@@ -33,10 +36,7 @@ public class StudentsController {
     @GetMapping(value = "/")
     public ResponseEntity<List<Student>> read() {
         final List<Student> students = studentsService.getAllStudents();
-
-        return students != null &&  !students.isEmpty()
-                ? new ResponseEntity<>(students, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
     // CRUD Create

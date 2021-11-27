@@ -19,6 +19,12 @@ public interface StudentsDao {
     List<Student> getAll();
 
     /**
+     * Возвращает список всех студентов относящихся к группе
+     * @return список студентов относящихся к группе
+     */
+    List<Student> getAllByGroupId(long groupId);
+
+    /**
      * Возвращает студента по его ID
      * @param id - ID студента
      * @return - объект студента с заданным ID

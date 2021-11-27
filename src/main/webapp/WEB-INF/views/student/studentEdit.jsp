@@ -6,8 +6,20 @@
     <form:hidden path="id" />
     <table>
         <tr>
-            <td>Name:</td>
-            <td><form:input path="name"/></td>
+            <td>First name:</td>
+            <td><form:input path="firstName"/></td>
+        </tr>
+        <tr>
+            <td>Last name:</td>
+            <td><form:input path="lastName"/></td>
+        </tr>
+        <tr>
+            <td>Middle name:</td>
+            <td><form:input path="middleName"/></td>
+        </tr>
+        <tr>
+            <td>Date of birth:</td>
+            <td><form:input path="dateOfBirth"/></td>
         </tr>
         <tr>
             <td>email:</td>

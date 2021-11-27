@@ -33,26 +33,18 @@ public class StudentGroupsController {
     @GetMapping(value = "/studentGroups")
     public ResponseEntity<List<StudentGroup>> read() {
         final List<StudentGroup> studentGroups = studentsGroupService.getAllStudentGroups();
-
-        return studentGroups != null && !studentGroups.isEmpty()
-                ? new ResponseEntity<>(studentGroups, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(studentGroups, HttpStatus.OK);
     }
 
     // Read all student in group
     @GetMapping(value = "/studentGroups/{id}/students")
     public ResponseEntity<List<Student>> readStudent(@PathVariable(name = "id") int groupID) {
-        final List<Student> students = new ArrayList<>();
-
-        for (Student x : studentService.getAllStudents()) {
-            if (x.getGroupID() == groupID) {
-                students.add(x);
-            }
+        if (studentsGroupService.getStudentGroup(groupID) != null) {
+            List<Student> students = studentService.getAllStudentsByGroup(groupID);
+            return new ResponseEntity<>(students, HttpStatus.OK);
         }
 
-        return students != null && !students.isEmpty()
-                ? new ResponseEntity<>(students, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     // Additional rest services
@@ -75,17 +67,13 @@ public class StudentGroupsController {
     public ResponseEntity<?> update(@RequestBody StudentGroup studentGroup) {
         final boolean updated = studentsGroupService.updateStudentGroup(studentGroup);
 
-        return updated
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/studentGroups/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") int id) {
         final boolean deleted = studentsGroupService.deleteStudentGroup(id);
 
-        return deleted
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

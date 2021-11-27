@@ -19,6 +19,12 @@ public interface StudentService {
     List<Student> getAllStudents();
 
     /**
+     * Возвращает список всех студентов относящихся к группе
+     * @return список студентов относящихся к группе
+     */
+    List<Student> getAllStudentsByGroup(long groupId);
+
+    /**
      * Возвращает студента по его ID
      * @param id - ID студента
      * @return - объект студента с заданным ID
@@ -29,7 +35,6 @@ public interface StudentService {
      * Обновляет или добавляет студента с заданным ID,
      * в соответствии с переданным студентом
      * @param student - студент в соответсвии с которым нужно обновить данные
-     * @param id - id студента которого нужно обновить
      * @return - true если студент был обновлён, иначе false
      */
     boolean updateStudent(Student student);

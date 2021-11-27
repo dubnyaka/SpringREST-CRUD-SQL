@@ -25,6 +25,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> getAllStudentsByGroup(long groupId) {
+        return studentsDao.getAllByGroupId(groupId);
+    }
+
+    @Override
     public Student getStudent(long id) {
         return studentsDao.get(id);
     }

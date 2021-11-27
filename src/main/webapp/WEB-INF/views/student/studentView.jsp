@@ -7,8 +7,20 @@
         <td>${student.id}</td>
     </tr>
     <tr>
-        <td>Name:</td>
-        <td>${student.name}</td>
+        <td>First name:</td>
+        <td>${student.firstName}</td>
+    </tr>
+    <tr>
+        <td>Last name:</td>
+        <td>${student.lastName}</td>
+    </tr>
+    <tr>
+        <td>Middle name:</td>
+        <td>${student.middleName}</td>
+    </tr>
+    <tr>
+        <td>Date of birth:</td>
+        <td>${student.dateOfBirth}</td>
     </tr>
     <tr>
         <td>Email:</td>
