@@ -1,6 +1,6 @@
 package com.example.springmvc.Dao;
 
-import com.example.springmvc.model.StudentsGroup;
+import com.example.springmvc.model.StudentGroup;
 
 import java.util.List;
 
@@ -10,29 +10,28 @@ public interface StudentGroupsDao {
      * Создает новую группу студентов
      * @param group - группа студентов для создания
      */
-    void save(StudentsGroup group);
+    void save(StudentGroup group);
 
     /**
      * Возвращает список всех имеющихся групп
      * @return список групп
      */
-    List<StudentsGroup> getAll();
+    List<StudentGroup> getAll();
 
     /**
      * Возвращает группу по её ID
      * @param id - ID группы
      * @return - объект группы с заданным ID
      */
-    StudentsGroup get(long id);
+    StudentGroup get(long id);
 
     /**
      * Обновляет группу с заданным ID,
      * в соответствии с переданной группой
      * @param group - группа студентов в соответсвии с которой нужно обновить данные
-     * @param id - id группы которую нужно обновить
      * @return - true если данные были обновлены, иначе false
      */
-    boolean update(StudentsGroup group, long id);
+    boolean update(StudentGroup group);
 
     /**
      * Удаляет группу студентов с заданным ID

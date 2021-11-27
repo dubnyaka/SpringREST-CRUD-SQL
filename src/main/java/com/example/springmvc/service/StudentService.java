@@ -10,20 +10,20 @@ public interface StudentService {
      * Создает нового студента
      * @param student - студент для создания
      */
-    void save(Student student);
+    void saveStudent(Student student);
 
     /**
      * Возвращает список всех имеющихся студентов
      * @return список студентов
      */
-    List<Student> getAll();
+    List<Student> getAllStudents();
 
     /**
      * Возвращает студента по его ID
      * @param id - ID студента
      * @return - объект студента с заданным ID
      */
-    Student get(long id);
+    Student getStudent(long id);
 
     /**
      * Обновляет или добавляет студента с заданным ID,
@@ -32,12 +32,12 @@ public interface StudentService {
      * @param id - id студента которого нужно обновить
      * @return - true если студент был обновлён, иначе false
      */
-    boolean update(Student student, long id);
+    boolean updateStudent(Student student);
 
     /**
      * Удаляет студента с заданным ID
      * @param id - id студента, которого нужно удалить
      * @return - true если студент был удален, иначе false
      */
-    boolean delete(long id);
+    boolean deleteStudent(long id);
 }

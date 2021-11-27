@@ -35,10 +35,9 @@ public class StudentsDaoImpl implements StudentsDao {
     }
 
     @Override
-    public boolean update(Student student, long id) {
-        if (CLIENT_REPOSITORY_MAP.containsKey(id)) {
-            student.setId(id);
-            CLIENT_REPOSITORY_MAP.put(id, student);
+    public boolean update(Student student) {
+        if (CLIENT_REPOSITORY_MAP.containsKey(student.getId())) {
+            CLIENT_REPOSITORY_MAP.put(student.getId(), student);
             return true;
         }
         return false;

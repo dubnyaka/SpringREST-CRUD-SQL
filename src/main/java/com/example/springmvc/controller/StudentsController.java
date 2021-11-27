@@ -26,13 +26,13 @@ public class StudentsController {
         tempStudent.setEmail("GGG@GGG");
         tempStudent.setPhone("14441255");
         tempStudent.setGroupID(1);
-        studentsService.save(tempStudent);
+        studentsService.saveStudent(tempStudent);
     }
 
     // Rest return students list
     @GetMapping(value = "/")
     public ResponseEntity<List<Student>> read() {
-        final List<Student> students = studentsService.getAll();
+        final List<Student> students = studentsService.getAllStudents();
 
         return students != null &&  !students.isEmpty()
                 ? new ResponseEntity<>(students, HttpStatus.OK)
@@ -50,7 +50,7 @@ public class StudentsController {
     // CRUD Read
     @GetMapping("/{id}")
     public ModelAndView viewStudent(@PathVariable("id") long id) {
-        Student student = studentsService.get(id);
+        Student student = studentsService.getStudent(id);
         if (student == null) {
             throw new ResourceNotFoundException();
         }
@@ -64,7 +64,7 @@ public class StudentsController {
     // CRUD Update
     @GetMapping("/{id}/edit")
     public ModelAndView editStudent(@PathVariable("id") int id) {
-        Student student = studentsService.get(id);
+        Student student = studentsService.getStudent(id);
 
         return new ModelAndView("student/studentEdit")
                 .addObject("student", student);
@@ -73,11 +73,11 @@ public class StudentsController {
     // CRUD Delete
     @PostMapping(value = "/delete")
     public ModelAndView delete(Student studentID) {
-        Student student = studentsService.get(studentID.getId());
+        Student student = studentsService.getStudent(studentID.getId());
         if (student == null) {
             throw new ResourceNotFoundException();
         }else{
-            studentsService.delete(studentID.getId());
+            studentsService.deleteStudent(studentID.getId());
         }
         return new ModelAndView("redirect:/students/");
     }
@@ -85,10 +85,10 @@ public class StudentsController {
     // For create and update class for save obj in repository
     @PostMapping("/save")
     public ModelAndView saveStudent(Student student) {
-        if(studentsService.get(student.getId()) != null){
-            studentsService.update(student,student.getId());
+        if(studentsService.getStudent(student.getId()) != null){
+            studentsService.updateStudent(student);
         }else {
-            studentsService.save(student);
+            studentsService.saveStudent(student);
         }
 
         return new ModelAndView("redirect:/students/" + student.getId());

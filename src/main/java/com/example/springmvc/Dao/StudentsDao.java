@@ -29,10 +29,9 @@ public interface StudentsDao {
      * Обновляет или добавляет студента с заданным ID,
      * в соответствии с переданным студентом
      * @param student - студент в соответсвии с которым нужно обновить данные
-     * @param id - id студента которого нужно обновить
      * @return - true если студент был обновлён, иначе false
      */
-    boolean update(Student student, long id);
+    boolean update(Student student);
 
     /**
      * Удаляет студента с заданным ID
