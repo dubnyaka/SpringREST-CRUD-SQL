@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Student {
-    private Integer id;
+    private long id;
     private String name;
     private String email;
     private String phone;
-    private Integer groupID;
+    private long groupID;
 }

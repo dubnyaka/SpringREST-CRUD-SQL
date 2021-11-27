@@ -1,10 +1,10 @@
-package com.example.springmvc.service;
+package com.example.springmvc.Dao;
 
 import com.example.springmvc.model.StudentsGroup;
 
 import java.util.List;
 
-public interface StudentGroupService {
+public interface StudentGroupsDao {
 
     /**
      * Создает новую группу студентов

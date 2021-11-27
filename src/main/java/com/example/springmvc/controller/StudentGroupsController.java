@@ -26,13 +26,13 @@ public class StudentGroupsController {
         // Create test group object in repository for test
         StudentsGroup tempGroup = new StudentsGroup();
         tempGroup.setName("FirstGroup");
-        studentsGroupService.create(tempGroup);
+        studentsGroupService.save(tempGroup);
     }
 
     // Rest return studentsGroups list
     @GetMapping(value = "/studentGroups")
     public ResponseEntity<List<StudentsGroup>> read() {
-        final List<StudentsGroup> studentsGroups = studentsGroupService.readAll();
+        final List<StudentsGroup> studentsGroups = studentsGroupService.getAll();
 
         return studentsGroups != null && !studentsGroups.isEmpty()
                 ? new ResponseEntity<>(studentsGroups, HttpStatus.OK)
@@ -44,7 +44,7 @@ public class StudentGroupsController {
     public ResponseEntity<List<Student>> readStudent(@PathVariable(name = "id") int groupID) {
         final List<Student> students = new ArrayList<>();
 
-        for (Student x : studentService.readAll()) {
+        for (Student x : studentService.getAll()) {
             if (x.getGroupID() == groupID) {
                 students.add(x);
             }
@@ -58,7 +58,7 @@ public class StudentGroupsController {
     // Additional rest services
     @GetMapping(value = "/studentGroups/{id}")
     public ResponseEntity<StudentsGroup> read(@PathVariable(name = "id") int id) {
-        final StudentsGroup studentsGroup = studentsGroupService.read(id);
+        final StudentsGroup studentsGroup = studentsGroupService.get(id);
 
         return studentsGroup != null
                 ? new ResponseEntity<>(studentsGroup, HttpStatus.OK)
@@ -67,7 +67,7 @@ public class StudentGroupsController {
 
     @PostMapping(value = "/studentGroups")
     public ResponseEntity<?> create(@RequestBody StudentsGroup studentsGroup) {
-        studentsGroupService.create(studentsGroup);
+        studentsGroupService.save(studentsGroup);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

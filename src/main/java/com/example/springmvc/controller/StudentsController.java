@@ -26,13 +26,13 @@ public class StudentsController {
         tempStudent.setEmail("GGG@GGG");
         tempStudent.setPhone("14441255");
         tempStudent.setGroupID(1);
-        studentsService.create(tempStudent);
+        studentsService.save(tempStudent);
     }
 
     // Rest return students list
     @GetMapping(value = "/")
     public ResponseEntity<List<Student>> read() {
-        final List<Student> students = studentsService.readAll();
+        final List<Student> students = studentsService.getAll();
 
         return students != null &&  !students.isEmpty()
                 ? new ResponseEntity<>(students, HttpStatus.OK)
@@ -49,8 +49,8 @@ public class StudentsController {
 
     // CRUD Read
     @GetMapping("/{id}")
-    public ModelAndView viewStudent(@PathVariable("id") int id) {
-        Student student = studentsService.read(id);
+    public ModelAndView viewStudent(@PathVariable("id") long id) {
+        Student student = studentsService.get(id);
         if (student == null) {
             throw new ResourceNotFoundException();
         }
@@ -64,7 +64,7 @@ public class StudentsController {
     // CRUD Update
     @GetMapping("/{id}/edit")
     public ModelAndView editStudent(@PathVariable("id") int id) {
-        Student student = studentsService.read(id);
+        Student student = studentsService.get(id);
 
         return new ModelAndView("student/studentEdit")
                 .addObject("student", student);
@@ -73,7 +73,7 @@ public class StudentsController {
     // CRUD Delete
     @PostMapping(value = "/delete")
     public ModelAndView delete(Student studentID) {
-        Student student = studentsService.read(studentID.getId());
+        Student student = studentsService.get(studentID.getId());
         if (student == null) {
             throw new ResourceNotFoundException();
         }else{
@@ -85,10 +85,10 @@ public class StudentsController {
     // For create and update class for save obj in repository
     @PostMapping("/save")
     public ModelAndView saveStudent(Student student) {
-        if(student.getId() != null){
+        if(studentsService.get(student.getId()) != null){
             studentsService.update(student,student.getId());
         }else {
-            studentsService.create(student);
+            studentsService.save(student);
         }
 
         return new ModelAndView("redirect:/students/" + student.getId());

@@ -1,7 +1,7 @@
-package com.example.springmvc.service;
+package com.example.springmvc.Dao;
 
 import com.example.springmvc.model.StudentsGroup;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Service
-public class StudentGroupServiceImpl implements StudentGroupService {
+@Repository
+public class StudentGroupsDaoImpl implements StudentGroupsDao {
     // Хранилище клиентов
     private static final Map<Long, StudentsGroup> STUDENT_GROUP_REPOSITORY_MAP = new ConcurrentHashMap<>();
 

@@ -1,10 +1,10 @@
-package com.example.springmvc.service;
+package com.example.springmvc.Dao;
 
 import com.example.springmvc.model.Student;
 
 import java.util.List;
 
-public interface StudentService {
+public interface StudentsDao {
 
     /**
      * Создает нового студента

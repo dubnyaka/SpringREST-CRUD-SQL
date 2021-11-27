@@ -1,6 +1,7 @@
-package com.example.springmvc.service;
+package com.example.springmvc.Dao;
+
 import com.example.springmvc.model.Student;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +9,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Service
-public class StudentServiceImpl implements StudentService {
-
-    // Хранилище клиентов
+@Repository
+public class StudentsDaoImpl implements StudentsDao {
+    // Хранилище студентов
     private static final Map<Long, Student> CLIENT_REPOSITORY_MAP = new ConcurrentHashMap<>();
 
-    // Переменная для генерации ID клиента
+    // Переменная для генерации ID студентов
     private static final AtomicLong CLIENT_ID_HOLDER = new AtomicLong();
 
     @Override
