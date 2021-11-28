@@ -5,13 +5,17 @@ import com.example.springmvc.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/students")
-@RestController
+@Controller
 public class StudentsController {
 
     private final StudentServiceImpl studentsService;
@@ -28,12 +32,13 @@ public class StudentsController {
         tempStudent.setDateOfBirth("1980.01.01");
         tempStudent.setEmail("GGG@GGG");
         tempStudent.setPhone("14441255");
-        tempStudent.setGroupID(1);
+        tempStudent.setGroupID((long) 1);
         studentsService.saveStudent(tempStudent);
     }
 
     // Rest return students list
     @GetMapping(value = "/")
+    @ResponseBody
     public ResponseEntity<List<Student>> read() {
         final List<Student> students = studentsService.getAllStudents();
         return new ResponseEntity<>(students, HttpStatus.OK);
@@ -76,23 +81,26 @@ public class StudentsController {
         Student student = studentsService.getStudent(studentID.getId());
         if (student == null) {
             throw new ResourceNotFoundException();
-        }else{
+        } else {
             studentsService.deleteStudent(studentID.getId());
         }
         return new ModelAndView("redirect:/students/");
     }
 
-    // For create and update class for save obj in repository
+    // используется аннотация @Valid и проверка состояния в BindingResult
     @PostMapping("/save")
-    public ModelAndView saveStudent(Student student) {
-        if(studentsService.getStudent(student.getId()) != null){
+    public String saveStudent(@Valid Student student, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/students/";
+        }
+        if (student.getId() != null) {
             studentsService.updateStudent(student);
-        }else {
+        } else {
             studentsService.saveStudent(student);
         }
-
-        return new ModelAndView("redirect:/students/" + student.getId());
+        return "redirect:/students/" + student.getId();
     }
+
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public class ResourceNotFoundException extends RuntimeException {
