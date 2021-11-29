@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class StudentGroupsServiceImpl implements StudentGroupsService {
 
-    private static StudentGroupsDaoImpl studentGroupsDao;
+    private StudentGroupsDaoImpl studentGroupsDao;
 
     @Autowired
     public StudentGroupsServiceImpl() {

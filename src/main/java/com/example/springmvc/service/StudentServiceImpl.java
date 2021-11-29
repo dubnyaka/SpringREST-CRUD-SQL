@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    private static StudentsDaoImpl studentsDao;
+    private StudentsDaoImpl studentsDao;
 
     @Autowired
     public StudentServiceImpl() {
