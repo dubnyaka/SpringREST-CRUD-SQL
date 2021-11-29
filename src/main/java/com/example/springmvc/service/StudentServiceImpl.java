@@ -1,6 +1,7 @@
 package com.example.springmvc.service;
 import com.example.springmvc.Dao.StudentsDaoImpl;
 import com.example.springmvc.model.Student;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ public class StudentServiceImpl implements StudentService {
 
     private static StudentsDaoImpl studentsDao;
 
+    @Autowired
     public StudentServiceImpl() {
         studentsDao = new StudentsDaoImpl();
     }
