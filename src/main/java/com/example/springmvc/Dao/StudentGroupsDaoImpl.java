@@ -12,10 +12,10 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class StudentGroupsDaoImpl implements StudentGroupsDao {
     // Хранилище групп студентов
-    private final Map<Long, StudentGroup> STUDENT_GROUP_REPOSITORY_MAP = new ConcurrentHashMap<>();
+    private static final Map<Long, StudentGroup> STUDENT_GROUP_REPOSITORY_MAP = new ConcurrentHashMap<>();
 
     // Переменная для генерации ID группы
-    private final AtomicLong STUDENT_GROUP_ID_HOLDER = new AtomicLong();
+    private static final AtomicLong STUDENT_GROUP_ID_HOLDER = new AtomicLong();
 
     @Override
     public void save(StudentGroup group) {
