@@ -12,8 +12,8 @@ public class StudentServiceImpl implements StudentService {
     private StudentsDaoImpl studentsDao;
 
     @Autowired
-    public StudentServiceImpl() {
-        studentsDao = new StudentsDaoImpl();
+    public StudentServiceImpl(StudentsDaoImpl studentsDao) {
+        this.studentsDao = studentsDao;
     }
 
     @Override
