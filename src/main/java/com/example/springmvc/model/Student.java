@@ -1,19 +1,25 @@
 package com.example.springmvc.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @ToString
+@NoArgsConstructor
 @Getter
 @Setter
+@Entity
 public class Student {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty(message = "Имя должно быть задано")
     @Size(min=2, max=30)
@@ -27,5 +33,5 @@ public class Student {
     private String email;
     private String phone;
     @NotNull
-    private Long groupID;
+    private Long groupId;
 }

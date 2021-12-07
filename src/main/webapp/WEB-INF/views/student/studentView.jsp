@@ -31,8 +31,8 @@
         <td>${student.phone}</td>
     </tr>
     <tr>
-        <td>GroupID:</td>
-        <td>${student.groupID}</td>
+        <td>GroupId:</td>
+        <td>${student.groupId}</td>
     </tr>
     <tr>
     <!-- Добавлена ссылка Edit -->

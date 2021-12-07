@@ -3,7 +3,6 @@
 
 <form:form modelAttribute="student"
            action="${pageContext.request.contextPath}/students/save">
-    <form:hidden path="id" />
     <table>
         <tr>
             <td>First name:</td>
@@ -31,7 +30,7 @@
         </tr>
         <tr>
             <td>groupID:</td>
-            <td><form:input path="groupID"/></td>
+            <td><form:input path="groupId"/></td>
         </tr>
         <td colspan="2">
             <input type="submit" value="Save" />

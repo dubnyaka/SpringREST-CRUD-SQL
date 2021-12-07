@@ -1,45 +1,62 @@
 package com.example.springmvc.service;
 
-import com.example.springmvc.Dao.StudentGroupsDaoImpl;
+import com.example.springmvc.Dao.StudentGroupsDao;
+import com.example.springmvc.Dao.StudentsDao;
+import com.example.springmvc.model.Student;
 import com.example.springmvc.model.StudentGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
 @Service
 public class StudentGroupsServiceImpl implements StudentGroupsService {
 
-    private StudentGroupsDaoImpl studentGroupsDao;
+    private final StudentGroupsDao studentGroupsDao;
 
     @Autowired
-    public StudentGroupsServiceImpl(StudentGroupsDaoImpl studentGroupsDao) {
+    public StudentGroupsServiceImpl(StudentGroupsDao studentGroupsDao) {
         this.studentGroupsDao = studentGroupsDao;
     }
 
-    @Override
     public void saveStudentGroup(StudentGroup group) {
         studentGroupsDao.save(group);
     }
 
-    @Override
     public List<StudentGroup> getAllStudentGroups() {
-        return studentGroupsDao.getAll();
+        List<StudentGroup> allGroups = new ArrayList<>();
+        Iterator<StudentGroup> studentIterator = studentGroupsDao.findAll().iterator();
+        while (studentIterator.hasNext()) {
+            allGroups.add(studentIterator.next());
+        }
+        return allGroups;
     }
 
-    @Override
     public StudentGroup getStudentGroup(long id) {
-        return studentGroupsDao.get(id);
+        if(studentGroupsDao.existsById((id))){
+            return studentGroupsDao.findById(id).get();
+        }else {
+            return null;
+        }
     }
 
-    @Override
     public boolean updateStudentGroup(StudentGroup group) {
-        return studentGroupsDao.update(group);
+        if(studentGroupsDao.existsById(group.getId())){
+            studentGroupsDao.save(group);
+            return true;
+        }
+        return false;
     }
 
-    @Override
     public boolean deleteStudentGroup(long id) {
-        return studentGroupsDao.delete(id);
+        if(studentGroupsDao.existsById(id)){
+            studentGroupsDao.deleteById(id);
+            return true;
+        }else {
+            return false;
+        }
     }
 }

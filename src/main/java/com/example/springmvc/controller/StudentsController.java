@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,16 +23,16 @@ public class StudentsController {
     public StudentsController(StudentServiceImpl studentsService) {
         this.studentsService = studentsService;
 
-        // Create test student object in repository for test
-        Student tempStudent = new Student();
-        tempStudent.setFirstName("Alexandr");
-        tempStudent.setLastName("Bublikov");
-        tempStudent.setMiddleName("Aleksandrovich");
-        tempStudent.setDateOfBirth("1980.01.01");
-        tempStudent.setEmail("GGG@GGG");
-        tempStudent.setPhone("14441255");
-        tempStudent.setGroupID((long) 1);
-        studentsService.saveStudent(tempStudent);
+//        // Create test student object in repository for test
+//        Student tempStudent = new Student();
+//        tempStudent.setFirstName("Alexandr");
+//        tempStudent.setLastName("Bublikov");
+//        tempStudent.setMiddleName("Aleksandrovich");
+//        tempStudent.setDateOfBirth("1980.01.01");
+//        tempStudent.setEmail("GGG@GGG");
+//        tempStudent.setPhone("14441255");
+//        tempStudent.setGroupId((long) 1);
+//        studentsService.saveStudent(tempStudent);
     }
 
     // Rest return students list
@@ -55,7 +54,7 @@ public class StudentsController {
     // CRUD Read
     @GetMapping("/{id}")
     public ModelAndView viewStudent(@PathVariable("id") long id) {
-        Student student = studentsService.getStudent(id);
+        Student student = studentsService.getStudent((int) id);
         if (student == null) {
             throw new ResourceNotFoundException();
         }
