@@ -1,9 +1,11 @@
 package com.example.springmvc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -33,6 +35,7 @@ public class Student {
     @Email
     private String email;
     private String phone;
+
     @ManyToOne
     @JoinColumn(name="id_group")
     private StudentGroup group;

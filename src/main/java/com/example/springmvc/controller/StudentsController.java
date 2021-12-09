@@ -93,11 +93,6 @@ public class StudentsController {
     // используется аннотация @Valid и проверка состояния в BindingResult
     @PostMapping("/save")
     public String saveStudent(@Valid Student student, BindingResult bindingResult) {
-        System.out.println(student.getGroup());
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
         if (bindingResult.hasErrors()) {
             return "redirect:/students/";
         }

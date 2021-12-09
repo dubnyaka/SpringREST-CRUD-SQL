@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <h1>Student</h1>
 
 <form:form modelAttribute="student"
@@ -28,9 +29,20 @@
             <td>phone:</td>
             <td><form:input path="phone"/></td>
         </tr>
+<%--        <tr>--%>
+<%--            <td>groupID:</td>--%>
+<%--            <td><form:input path="group"/></td>--%>
+<%--        </tr>--%>
+
         <tr>
-            <td>groupID:</td>
-            <td><form:input path="group"/></td>
+            <td>Group:</td>
+            <td>
+                <form:select path="group">
+                    <c:forEach var="group" items="${student_groups}">
+                        <form:option value="${group.getId()}"> ${group.getName()} </form:option>
+                    </c:forEach>
+                </form:select>
+            </td>
         </tr>
 
         <td colspan="2">

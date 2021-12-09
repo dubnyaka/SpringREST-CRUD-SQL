@@ -39,7 +39,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public Student getStudent(long id) {
-        System.out.println(id);
         if(studentsDao.existsById((id))){
             return studentsDao.findById(id).get();
         }else {
