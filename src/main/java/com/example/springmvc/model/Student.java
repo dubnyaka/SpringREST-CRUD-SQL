@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @Entity
+@Table(name = "students")
 public class Student {
 
     @Id
@@ -32,6 +33,7 @@ public class Student {
     @Email
     private String email;
     private String phone;
-    @NotNull
-    private Long groupId;
+    @ManyToOne
+    @JoinColumn(name="id_group")
+    private StudentGroup group;
 }

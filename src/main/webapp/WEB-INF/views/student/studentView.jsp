@@ -32,7 +32,7 @@
     </tr>
     <tr>
         <td>GroupId:</td>
-        <td>${student.groupId}</td>
+        <td>${student.group}</td>
     </tr>
     <tr>
     <!-- Добавлена ссылка Edit -->

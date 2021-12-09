@@ -30,8 +30,9 @@
         </tr>
         <tr>
             <td>groupID:</td>
-            <td><form:input path="groupId"/></td>
+            <td><form:input path="group"/></td>
         </tr>
+
         <td colspan="2">
             <input type="submit" value="Save" />
         </td>

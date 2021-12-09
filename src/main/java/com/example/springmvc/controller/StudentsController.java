@@ -1,6 +1,8 @@
 package com.example.springmvc.controller;
 
 import com.example.springmvc.model.Student;
+import com.example.springmvc.model.StudentGroup;
+import com.example.springmvc.service.StudentGroupsServiceImpl;
 import com.example.springmvc.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +20,12 @@ import java.util.List;
 public class StudentsController {
 
     private final StudentServiceImpl studentsService;
+    private final StudentGroupsServiceImpl studentGroupsService;
 
     @Autowired
-    public StudentsController(StudentServiceImpl studentsService) {
+    public StudentsController(StudentServiceImpl studentsService, StudentGroupsServiceImpl studentGroupsService) {
         this.studentsService = studentsService;
-
+        this.studentGroupsService = studentGroupsService;
 //        // Create test student object in repository for test
 //        Student tempStudent = new Student();
 //        tempStudent.setFirstName("Alexandr");
@@ -47,8 +50,9 @@ public class StudentsController {
     @GetMapping("/new")
     public ModelAndView createStudent() {
         Student student = new Student();
+        List<StudentGroup> studentGroups = studentGroupsService.getAllStudentGroups();
         return new ModelAndView("student/studentEdit")
-                .addObject("student", student);
+                .addObject("student", student).addObject("student_groups", studentGroups);
     }
 
     // CRUD Read
@@ -89,6 +93,11 @@ public class StudentsController {
     // используется аннотация @Valid и проверка состояния в BindingResult
     @PostMapping("/save")
     public String saveStudent(@Valid Student student, BindingResult bindingResult) {
+        System.out.println(student.getGroup());
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
         if (bindingResult.hasErrors()) {
             return "redirect:/students/";
         }

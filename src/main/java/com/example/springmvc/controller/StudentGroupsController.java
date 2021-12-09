@@ -24,10 +24,10 @@ public class StudentGroupsController {
         this.studentsGroupService = studentsGroupService;
         this.studentService = studentService;
 
-//        // Create test group object in repository for test
-//        StudentGroup tempGroup = new StudentGroup();
-//        tempGroup.setName("FirstGroup");
-//        studentsGroupService.saveStudentGroup(tempGroup);
+        // Create test group object in repository for test
+        StudentGroup tempGroup = new StudentGroup();
+        tempGroup.setName("FirstGroup");
+        studentsGroupService.saveStudentGroup(tempGroup);
     }
 
     // Rest return studentsGroups list
