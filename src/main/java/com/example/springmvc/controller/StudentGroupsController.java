@@ -24,10 +24,12 @@ public class StudentGroupsController {
         this.studentsGroupService = studentsGroupService;
         this.studentService = studentService;
 
-//        // Create test group object in repository for test
-//        StudentGroup tempGroup = new StudentGroup();
-//        tempGroup.setName("FirstGroup");
-//        studentsGroupService.saveStudentGroup(tempGroup);
+        // Create test group object in repository for test
+        StudentGroup tempGroup = new StudentGroup();
+        tempGroup.setName("FirstGroup");
+        tempGroup.setId((long) 1000);
+        studentsGroupService.saveStudentGroup(tempGroup);
+
     }
 
     // Rest return studentsGroups list
@@ -59,7 +61,7 @@ public class StudentGroupsController {
     }
 
     @PostMapping(value = "/studentGroups")
-    public ResponseEntity<?> create(@Valid @RequestBody StudentGroup studentGroup) {
+    public ResponseEntity<?> create(@PathVariable(name = "id") int id,@Valid @RequestBody StudentGroup studentGroup) {
         studentsGroupService.saveStudentGroup(studentGroup);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

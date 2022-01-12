@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin
 @RequestMapping("/students")
 @Controller
 public class StudentsController {
@@ -26,16 +27,6 @@ public class StudentsController {
     public StudentsController(StudentServiceImpl studentsService, StudentGroupsServiceImpl studentGroupsService) {
         this.studentsService = studentsService;
         this.studentGroupsService = studentGroupsService;
-//        // Create test student object in repository for test
-//        Student tempStudent = new Student();
-//        tempStudent.setFirstName("Alexandr");
-//        tempStudent.setLastName("Bublikov");
-//        tempStudent.setMiddleName("Aleksandrovich");
-//        tempStudent.setDateOfBirth("1980.01.01");
-//        tempStudent.setEmail("GGG@GGG");
-//        tempStudent.setPhone("14441255");
-//        tempStudent.setGroupId((long) 1);
-//        studentsService.saveStudent(tempStudent);
     }
 
     // Rest return students list
